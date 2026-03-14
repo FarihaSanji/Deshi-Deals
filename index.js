@@ -1,9 +1,22 @@
-// Deshi Deals E-commerce Website
+// Static data for GitHub Pages deployment (also used for local development)
+const products = [
+  { id: 1, name: 'Kitchen Stick', category: 'kitchenware', price: 150.40, rating: 4, image: './assets/kitchen-1.png' },
+  { id: 2, name: 'Chopping Board', category: 'kitchenware', price: 200.00, rating: 4, image: './assets/kitchen-2.png' },
+  { id: 3, name: 'Cooking Pot', category: 'kitchenware', price: 900.00, rating: 5, image: './assets/kitchen-3.png' },
+  { id: 4, name: 'Home Chair', category: 'furniture', price: 3000.00, rating: 4, image: './assets/furniture-1.png' },
+  { id: 5, name: 'Office Table', category: 'furniture', price: 5000.00, rating: 5, image: './assets/furniture-2.png' },
+  { id: 6, name: 'Study Table', category: 'furniture', price: 4500.00, rating: 3, image: './assets/furniture-3.png' },
+  { id: 7, name: 'Cricket Bat', category: 'sports', price: 2500.00, rating: 5, image: './assets/sports-1.png' },
+  { id: 8, name: 'Football', category: 'sports', price: 800.00, rating: 4, image: './assets/sports-2.png' },
+  { id: 9, name: 'Tennis Racket', category: 'sports', price: 3500.00, rating: 3, image: './assets/sports-3.png' }
+];
+
+// Static Deshi Deals E-commerce Website
 class DeshiDeals {
   constructor() {
     this.sessionId = this.generateSessionId();
-    this.products = [];
-    this.cart = { items: [], total: 0, quantity: 0 };
+    this.products = products; // Use static data
+    this.cart = this.loadCartFromStorage();
     this.appliedCoupon = null;
     this.init();
   }
@@ -14,96 +27,113 @@ class DeshiDeals {
 
   async init() {
     await this.loadProducts();
-    await this.loadCart();
     this.setupEventListeners();
     this.renderProducts();
+    this.updateCartUI();
   }
 
-  // API Methods
+  // Load cart from localStorage for GitHub Pages
+  loadCartFromStorage() {
+    const savedCart = localStorage.getItem('deshiDealsCart');
+    return savedCart ? JSON.parse(savedCart) : { items: [], total: 0, quantity: 0 };
+  }
+
+  // Save cart to localStorage for GitHub Pages
+  saveCartToStorage() {
+    localStorage.setItem('deshiDealsCart', JSON.stringify(this.cart));
+  }
+
+  // API Methods (now using static data)
   async loadProducts() {
-    try {
-      const response = await fetch('/api/products');
-      this.products = await response.json();
-    } catch (error) {
-      this.showNotification('Error loading products', 'error');
-    }
-  }
-
-  async loadCart() {
-    try {
-      const response = await fetch(`/api/cart/${this.sessionId}`);
-      this.cart = await response.json();
-      this.updateCartUI();
-    } catch (error) {
-      this.showNotification('Error loading cart', 'error');
-    }
+    // Products are already loaded from static data
+    console.log('Products loaded from static data:', this.products.length);
   }
 
   async addToCart(productId) {
-    try {
-      const response = await fetch(`/api/cart/${this.sessionId}/add`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId }),
-      });
-      
-      this.cart = await response.json();
-      this.updateCartUI();
-      this.showNotification('Product added to cart!');
-    } catch (error) {
-      this.showNotification('Error adding product to cart', 'error');
+    const product = this.products.find(p => p.id === productId);
+    
+    if (!product) {
+      this.showNotification('Product not found', 'error');
+      return;
     }
+
+    const existingItem = this.cart.items.find(item => item.id === productId);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      this.cart.items.push({ ...product, quantity: 1 });
+    }
+
+    this.calculateCartTotal();
+    this.saveCartToStorage();
+    this.updateCartUI();
+    this.showNotification('Product added to cart!');
   }
 
   async removeFromCart(productId) {
-    try {
-      const response = await fetch(`/api/cart/${this.sessionId}/remove`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId }),
-      });
-      
-      this.cart = await response.json();
-      this.updateCartUI();
-      this.showNotification('Item removed from cart!');
-    } catch (error) {
-      this.showNotification('Error removing item from cart', 'error');
+    const itemIndex = this.cart.items.findIndex(item => item.id === productId);
+    if (itemIndex === -1) {
+      this.showNotification('Item not found in cart', 'error');
+      return;
     }
+
+    const item = this.cart.items[itemIndex];
+    if (item.quantity > 1) {
+      item.quantity--;
+    } else {
+      this.cart.items.splice(itemIndex, 1);
+    }
+
+    this.calculateCartTotal();
+    this.saveCartToStorage();
+    this.updateCartUI();
+    this.showNotification('Item removed from cart!');
   }
 
   async clearCart() {
-    try {
-      await fetch(`/api/cart/${this.sessionId}/clear`, { method: 'POST' });
-      
-      this.cart = { items: [], total: 0, quantity: 0 };
-      this.appliedCoupon = null;
-      this.updateCartUI();
-      this.showNotification('Cart cleared!');
-    } catch (error) {
-      this.showNotification('Error clearing cart', 'error');
-    }
+    this.cart = { items: [], total: 0, quantity: 0 };
+    this.appliedCoupon = null;
+    this.saveCartToStorage();
+    this.updateCartUI();
+    this.showNotification('Cart cleared!');
   }
 
   async applyCoupon(couponCode) {
-    try {
-      const response = await fetch('/api/coupons/validate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ couponCode, cartTotal: this.cart.total }),
-      });
-      
-      const result = await response.json();
-      
-      if (response.ok) {
-        this.appliedCoupon = result;
-        this.updateCartUI();
-        this.showNotification(`Coupon applied! You saved ${result.discountAmount.toFixed(2)} TK`);
-      } else {
-        this.showNotification(result.error, 'error');
-      }
-    } catch (error) {
-      this.showNotification('Error applying coupon', 'error');
+    // Static coupon validation for GitHub Pages
+    const coupons = {
+      'SELL200': { discount: 20, minAmount: 200 }
+    };
+    
+    const coupon = coupons[couponCode];
+    
+    if (!coupon) {
+      this.showNotification('Invalid coupon code', 'error');
+      return;
     }
+
+    if (this.cart.total < coupon.minAmount) {
+      this.showNotification(`Minimum order amount is ${coupon.minAmount} TK`, 'error');
+      return;
+    }
+
+    const discountAmount = this.cart.total * (coupon.discount / 100);
+    const newTotal = this.cart.total - discountAmount;
+
+    this.appliedCoupon = {
+      couponCode,
+      discountPercentage: coupon.discount,
+      discountAmount,
+      originalTotal: this.cart.total,
+      newTotal
+    };
+
+    this.updateCartUI();
+    this.showNotification(`Coupon applied! You saved ${discountAmount.toFixed(2)} TK`);
+  }
+
+  calculateCartTotal() {
+    this.cart.total = this.cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    this.cart.quantity = this.cart.items.reduce((sum, item) => sum + item.quantity, 0);
   }
 
   // UI Methods

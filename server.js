@@ -13,15 +13,15 @@ app.use(express.static('.'));
 
 // Data
 const products = [
-  { id: 1, name: 'Kitchen Stick', category: 'kitchenware', price: 150.40, rating: 4, image: './deshi-deals/assets/kitchen-1.png' },
-  { id: 2, name: 'Chopping Board', category: 'kitchenware', price: 200.00, rating: 4, image: './deshi-deals/assets/kitchen-2.png' },
-  { id: 3, name: 'Cooking Pot', category: 'kitchenware', price: 900.00, rating: 5, image: './deshi-deals/assets/kitchen-3.png' },
-  { id: 4, name: 'Home Chair', category: 'furniture', price: 3000.00, rating: 4, image: './deshi-deals/assets/furniture-1.png' },
-  { id: 5, name: 'Office Table', category: 'furniture', price: 5000.00, rating: 5, image: './deshi-deals/assets/furniture-2.png' },
-  { id: 6, name: 'Study Table', category: 'furniture', price: 4500.00, rating: 3, image: './deshi-deals/assets/furniture-3.png' },
-  { id: 7, name: 'Cricket Bat', category: 'sports', price: 2500.00, rating: 5, image: './deshi-deals/assets/sports-1.png' },
-  { id: 8, name: 'Football', category: 'sports', price: 800.00, rating: 4, image: './deshi-deals/assets/sports-2.png' },
-  { id: 9, name: 'Tennis Racket', category: 'sports', price: 3500.00, rating: 3, image: './deshi-deals/assets/sports-3.png' }
+  { id: 1, name: 'Kitchen Stick', category: 'kitchenware', price: 150.40, rating: 4, image: './assets/kitchen-1.png' },
+  { id: 2, name: 'Chopping Board', category: 'kitchenware', price: 200.00, rating: 4, image: './assets/kitchen-2.png' },
+  { id: 3, name: 'Cooking Pot', category: 'kitchenware', price: 900.00, rating: 5, image: './assets/kitchen-3.png' },
+  { id: 4, name: 'Home Chair', category: 'furniture', price: 3000.00, rating: 4, image: './assets/furniture-1.png' },
+  { id: 5, name: 'Office Table', category: 'furniture', price: 5000.00, rating: 5, image: './assets/furniture-2.png' },
+  { id: 6, name: 'Study Table', category: 'furniture', price: 4500.00, rating: 3, image: './assets/furniture-3.png' },
+  { id: 7, name: 'Cricket Bat', category: 'sports', price: 2500.00, rating: 5, image: './assets/sports-1.png' },
+  { id: 8, name: 'Football', category: 'sports', price: 800.00, rating: 4, image: './assets/sports-2.png' },
+  { id: 9, name: 'Tennis Racket', category: 'sports', price: 3500.00, rating: 3, image: './assets/sports-3.png' }
 ];
 
 const carts = new Map();
