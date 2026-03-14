@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deshi Deals</title>
+  <link rel="shortcut icon" href="./deshi-deals/assets/logo.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.2s; }
+    .stagger-3 { animation-delay: 0.3s; }
+    
+    body {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      min-height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo flex justify-center items-center gap-2 shadow-md py-4 fade-in stagger-1">
+      <img src="./deshi-deals/assets/logo.png" alt="Deshi Deals Logo" class="w-12">
+      <div class="">
+        <h2 class="text-pink-500">Deshi<span class="font-bold">Deals</span></h2>
+        <p class="text-sm text-gray-500">Cheap Price - Best Quality</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="bg-gray-100">
+    <section class="banner justify-center text-center bg-pink-300 px-4 py-8 lg:py-12 fade-in stagger-2">
+      <h1 class="header text-2xl sm:text-3xl lg:text-4xl font-bold pt-8 lg:pt-12">Purchase TK 200 or above & get <br> <span class="text-pink-500">20%
+          off</span>
+      </h1>
+
+      <div class="mt-4 lg:mt-6">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-12 pt-4 font-bold text-lg sm:text-xl text-gray-700 justify-center items-center">
+          <h2>Use Promo Code</h2>
+          <button class="bg-pink-500 px-6 sm:px-8 py-2 rounded-sm text-white hover:bg-pink-600 transition-colors transform hover:scale-105">SELL200</button>
+        </div>
+        <img src="./deshi-deals/assets/hero-bg.png" alt="Promotional Banner" class="mx-auto mt-6 w-full max-w-2xl lg:max-w-4xl px-4 sm:px-8 lg:px-28 transform hover:scale-105 transition-all duration-300 ease-in-out rounded-lg shadow-lg hover:shadow-2xl">
+      </div>
+    </section>
+
+    <section id="products-container" class="w-11/12 mx-auto py-6 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+      <section id="product-box" class="lg:col-span-9 order-2 lg:order-1">
+        <!-- Products will be dynamically loaded here -->
+      </section>
+
+      <aside id="cart-box" class="lg:col-span-3 order-1 lg:order-2 mt-6 lg:mt-14">
+        <div class="bg-white p-4 sm:p-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 fade-in stagger-3">
+          <h1 class="font-bold mb-4 sm:mb-5 text-lg sm:text-xl">Have a Coupon</h1>
+
+          <div class="join flex flex-col sm:flex-row">
+            <input class="input join-item mb-2 sm:mb-0" type="email" placeholder="Email" required />
+            <button class="btn bg-pink-500 text-white cart-btn hover:bg-pink-600 transition-colors">Apply</button>
+          </div>
+        </div>
+
+        <div class="cart-box rounded bg-white p-4 sm:p-5 mt-6 lg:mt-10 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 fade-in stagger-3">
+          <div class="flex justify-between items-center m-4">
+            <p class="font-semibold text-xl sm:text-2xl">Carts</p>
+            <button class="btn bg-pink-500 text-white hover:bg-pink-600 transition-colors" id="btn-clear">Remove All</button>
+          </div>
+          <div class="" id="cart-container"></div>
+          <div class="mt-4">
+            <p class="text-base sm:text-lg">Total Price: <span id="total-price">0</span> TK</p>
+            <p class="text-base sm:text-lg mt-2">Total Quantity: <span id="total-quantity">0</span> Items</p>
+            <button class="btn bg-pink-500 text-white join-item btn-block hover:bg-pink-600 transition-colors mt-4">Make Purchase</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bg-pink-200 text-gray-800 py-8 mt-12">
+    <div class="w-11/12 mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-bold text-lg mb-4">About Deshi Deals</h3>
+          <p class="text-gray-700 text-sm">Your trusted marketplace for quality products at affordable prices. Cheap Price - Best Quality guaranteed.</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+          <ul class="text-gray-700 text-sm space-y-2">
+            <li><a href="#" class="hover:text-pink-600 transition-colors">Home</a></li>
+            <li><a href="#" class="hover:text-pink-600 transition-colors">Products</a></li>
+            <li><a href="#" class="hover:text-pink-600 transition-colors">About Us</a></li>
+            <li><a href="#" class="hover:text-pink-600 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg mb-4">Contact Info</h3>
+          <ul class="text-gray-700 text-sm space-y-2">
+            <li>Email: info@deshideals.com</li>
+            <li>Phone: +880 1234-567890</li>
+            <li>Address: Dhaka, Bangladesh</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-pink-400 mt-8 pt-6 text-center">
+        <p class="text-gray-700 text-sm">&copy; 2024 Deshi Deals. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/index.js"></script>
+</body>
+
+</html>
