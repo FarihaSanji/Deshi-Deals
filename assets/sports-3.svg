@@ -1,0 +1,5 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#FFD700"/>
+  <ellipse cx="100" cy="100" rx="40" ry="60" fill="#8B4513"/>
+  <text x="100" y="140" font-family="Arial" font-size="16" fill="#FF4500" text-anchor="middle" font-weight="bold">3500.00 TK</text>
+</svg>

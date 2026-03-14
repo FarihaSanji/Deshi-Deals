@@ -1,0 +1,5 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#FFB6C1"/>
+  <text x="200" y="100" font-family="Arial" font-size="24" fill="#8B0000" text-anchor="middle" font-weight="bold">Deshi Deals</text>
+  <text x="200" y="130" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">20% OFF on Orders 200+</text>
+</svg>

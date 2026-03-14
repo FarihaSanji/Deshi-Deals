@@ -1,0 +1,6 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#F0E68C"/>
+  <text x="100" y="90" font-family="Arial" font-size="14" fill="#B8860B" text-anchor="middle" font-weight="bold">Home</text>
+  <text x="100" y="110" font-family="Arial" font-size="12" fill="#B8860B" text-anchor="middle">Chair</text>
+  <text x="100" y="140" font-family="Arial" font-size="16" fill="#FF4500" text-anchor="middle" font-weight="bold">3000.00 TK</text>
+</svg>
